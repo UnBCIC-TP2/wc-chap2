@@ -26,4 +26,21 @@ class TestInterpreter extends FlatSpec with Matchers with GivenWhenThen {
     interpreter.pop() should be ("12") 
   }
 
+  it should "return [word count, go, forth!] when we call run [title.txt, read] " in {
+    val interpreter = new Interpreter() 
+    val p1  = Parser.parse("title.txt read")
+
+    interpreter.run(p1)
+    interpreter.pop().asInstanceOf[List[String]] should be (List("word count", "go", "forth!")) 
+  }
+
+
+  it should "return [word, count, go, forth] when we call run [[word cound, go, forth], words] " in {
+    val interpreter = new Interpreter() 
+    val p1  = Parser.parse("title.txt read words")
+
+    interpreter.run(p1)    
+    interpreter.pop().asInstanceOf[List[String]] should be (List("word", "count", "go", "forth")) 
+  }
+
 }
