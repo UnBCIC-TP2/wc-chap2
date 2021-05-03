@@ -8,15 +8,18 @@ object Main extends App {
   var continue = true
   
   while(continue) {     
-    print("wc-interpreter > ")
-    var program = StdIn.readLine()
+    try {
+      print("wc-interpreter > ")
+      val program = StdIn.readLine()
+      val cmds = parse(program)
 
-    var cmds = parse(program)
+      interpreter.run(cmds)
 
-    interpreter.clear()
-    interpreter.run(cmds)
-
-    if(program == "break") continue = false;
+      if (program == ":quit") continue = false;
+    }
+    catch {
+      case e: Throwable => println(e)
+    }
   }
   
 }
